@@ -4,7 +4,7 @@ import main.Space2D;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 
 /**
@@ -25,29 +25,29 @@ public class Space2DTest extends Assert {
 
     @Test
     public void testLeftPoint() throws Exception {
-        final ArrayList<Point2D> points = new ArrayList<Point2D>() {
+        final HashSet<Point2D> points = new HashSet<Point2D>() {
             {
                 add(new Point2D(0, 0));
                 add(new Point2D(1, 1));
                 add(new Point2D(0.5, -10));
             }
         };
-        assertEquals(points.get(0), Space2D.findLeftPoint(PointSet.getSetFromPoints(points)));
+        assertEquals(new Point2D(0, 0), Space2D.findLeftPoint(PointSet.getSetFromPoints(points)));
     }
 
     @Test
     public void testOnePoint() throws Exception {
-        final ArrayList<Point2D> points = new ArrayList<Point2D>() {
+        final HashSet<Point2D> points = new HashSet<Point2D>() {
             {
                 add(new Point2D(0.5, -10));
             }
         };
-        assertEquals(points.get(0), Space2D.findLeftPoint(PointSet.getSetFromPoints(points)));
+        assertEquals(new Point2D(0.5, -10), Space2D.findLeftPoint(PointSet.getSetFromPoints(points)));
     }
 
     @Test(expected = NoSuchElementException.class)
     public void testEmpty() {
-        final ArrayList<Point2D> points = new ArrayList<Point2D>();
+        final HashSet<Point2D> points = new HashSet<>();
         assertEquals(new Point2D(0, 0), Space2D.findLeftPoint(PointSet.getSetFromPoints(points)));
     }
 
@@ -67,5 +67,19 @@ public class Space2DTest extends Assert {
         assertTrue(Space2D.crossProduct(new Point2D(0, 0), new Point2D(1, 1), new Point2D(1, 0)) < 0);
         /* Collinear. */
         assertTrue(Space2D.crossProduct(new Point2D(0, 0), new Point2D(1, 1), new Point2D(2, 2)) == 0);
+    }
+
+
+    @Test
+    public void testIsCollinearWithCollinear() throws Exception {
+        assertTrue(Space2D.isCollinear(new PointSet(new Point2D(0, 0))));
+        assertTrue(Space2D.isCollinear(new PointSet(new Point2D(0, 0), new Point2D(1, 1))));
+        assertTrue(Space2D.isCollinear(new PointSet(new Point2D(10, 13), new Point2D(10, 14), new Point2D(10, 15))));
+    }
+
+    @Test
+    public void testIsCollinearWithNonCollinear() throws Exception {
+        assertFalse(Space2D.isCollinear(new PointSet(new Point2D(0, 0), new Point2D(10, 2), new Point2D(1, 1/2))));
+        assertFalse(Space2D.isCollinear(PointSet.getRandomSet(1000)));
     }
 }

@@ -1,5 +1,6 @@
 package main;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 /**
@@ -18,14 +19,16 @@ public class Space2D {
             throw new NoSuchElementException();
         }
 
-        /* TODO: rewrite in iterator-fashion to use Set and avoid any duplicates. */
-        Point2D leftPoint = set.getPoint(0);
-        for (int i = 1; i < set.getSize(); i++) {
-            if (leftPoint.getX() > set.getPoint(i).getX() ||
-                    ((leftPoint.getX() == set.getPoint(i).getX()) && (leftPoint.getY() > set.getPoint(i).getY()))) {
-                leftPoint = set.getPoint(i);
+        final Iterator<Point2D> pointsIterator = set.iterator();
+        Point2D leftPoint = pointsIterator.next();
+        while (pointsIterator.hasNext()) {
+            Point2D p = pointsIterator.next();
+            if (leftPoint.getX() > p.getX() ||
+                    ((leftPoint.getX() == p.getX()) && (leftPoint.getY() > p.getY()))) {
+                leftPoint = p;
             }
         }
+
         return leftPoint;
     }
 
@@ -39,5 +42,20 @@ public class Space2D {
         final Point2D u = new Point2D(b.getX() - a.getX(), b.getY() - a.getY());
         final Point2D v = new Point2D(c.getX() - a.getX(), c.getY() - a.getY());
         return u.getX() * v.getY() - u.getY() * v.getX();
+    }
+
+    public static boolean isCollinear(final PointSet points) {
+        if (points.getSize() < 3) {
+            return true;
+        }
+        final Iterator<Point2D> pointsIterator = points.iterator();
+        final Point2D a = pointsIterator.next();
+        final Point2D b = pointsIterator.next();
+        while (pointsIterator.hasNext()) {
+            if (crossProduct(a, b, pointsIterator.next()) != 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

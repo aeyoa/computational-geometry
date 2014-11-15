@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * @author aeyoa
@@ -20,13 +22,19 @@ public class PointSetTest extends Assert {
 
     @Test
     public void testSpecificPoints() throws Exception {
-        final PointSet set = PointSet.getSetFromPoints(new ArrayList<Point2D>() {
+        final PointSet set = PointSet.getSetFromPoints(new HashSet<Point2D>() {
             {
                 add(new Point2D(1, 1));
                 add(new Point2D(2, 2));
             }
         });
-        assertTrue(set.iterator().hasNext());
-        assertEquals(set.iterator().next().getX(), 1.0, 0.0);
+
+        final Iterator<Point2D> points = set.iterator();
+        assertTrue(points.hasNext());
+        points.next();
+        assertTrue(points.hasNext());
+        points.next();
+        assertFalse(points.hasNext());
+
     }
 }
