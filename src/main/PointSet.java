@@ -30,13 +30,16 @@ public class PointSet implements Iterable<Point2D> {
         this.points = points;
     }
 
-
     public static PointSet getRandomSet(final int count) {
         return new PointSet(count);
     }
 
     public static PointSet getSetFromPoints(final Set<Point2D> points) {
         return new PointSet(points);
+    }
+
+    public void add(final Point2D point) {
+        points.add(point);
     }
 
     public int getSize() {
