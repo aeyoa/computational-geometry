@@ -6,13 +6,13 @@ Graham's scan is a method of computing the convex hull of a finite set of points
 
 [Read more on Wikipedia](http://en.wikipedia.org/wiki/Graham_scan)
 
-### Run
+#### Run
 The easiest way to run the code is to use IntelliJ IDEA: just open .iml file and you are ready to go.
 
 [Download IntelliJ IDEA](https://www.jetbrains.com/idea/download/)
 
-### Using 
-```
+#### Using 
+```java
 /* Create the set of points to work with */
 final PointSet pointSet = new PointSet();
 pointSet.add(new Point2D(-1, -1));
@@ -33,7 +33,7 @@ for (Point2D point : hull) {
 }
 ```
 
-### Simple UI
+#### Simple UI
 
 You can try the algorithm in the simple UI `src/ui/GrahamUI`
 
