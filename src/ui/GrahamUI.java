@@ -22,7 +22,7 @@ public class GrahamUI {
     public static void main(String[] args) throws IOException {
 
         JFrame frame = new JFrame("Graham");
-        final main.convexhull.Graham graham = new Graham();
+        final Graham graham = new Graham();
         final HashSet<Point2D> pointSet = new HashSet<>();
 
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT)) {
