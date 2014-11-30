@@ -15,7 +15,7 @@ import java.util.Stack;
  * @author aeyoa
  */
 
-public class Graham implements ConvexHullBuider {
+public class Graham implements ConvexHullBuilder {
 
     @Override
     public ConvexHull build(final PointSet pointSet) {

@@ -5,7 +5,7 @@ import main.PointSet;
 /**
  * @author aeyoa
  */
-public interface ConvexHullBuider {
+public interface ConvexHullBuilder {
 
     public ConvexHull build(final PointSet set);
 }

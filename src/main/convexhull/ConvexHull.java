@@ -1,9 +1,10 @@
 package main.convexhull;
 
 import main.Point2D;
+import main.Space2D;
 
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 /**
  * @author aeyoa
@@ -35,5 +36,20 @@ public class ConvexHull implements Iterable<Point2D> {
     @Override
     public Iterator<Point2D> iterator() {
         return null;
+    }
+
+    /* Checks if this ConvexHull is actually the convex hull.
+    * In this method we assume that convex hull has CCW rotation.
+    * Needed for tests only. */
+    public boolean checkConvexHullCCWProperty() {
+        final LinkedList<Point2D> tempList = new LinkedList<>();
+        tempList.addAll(points);
+        tempList.add(points.peekFirst());
+        for (int i = 2; i < tempList.size(); i++) {
+            if (Space2D.crossProduct(tempList.get(i - 2), tempList.get(i - 1), tempList.get(i)) <= 0) {
+                return false;
+            }
+        }
+        return true;
     }
 }

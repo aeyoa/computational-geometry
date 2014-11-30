@@ -76,4 +76,5 @@ public class GrahamTest extends Assert {
         assertEquals(new Point2D(-1, -1), convexHull.getPoint(0));
         assertEquals(new Point2D(5, 5), convexHull.getPoint(1));
     }
+
 }

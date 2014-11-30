@@ -79,7 +79,41 @@ public class Space2DTest extends Assert {
 
     @Test
     public void testIsCollinearWithNonCollinear() throws Exception {
-        assertFalse(Space2D.isCollinear(new PointSet(new Point2D(0, 0), new Point2D(10, 2), new Point2D(1, 1/2))));
+        assertFalse(Space2D.isCollinear(new PointSet(new Point2D(0, 0), new Point2D(10, 2), new Point2D(1, 1 / 2))));
         assertFalse(Space2D.isCollinear(PointSet.getRandomSet(1000)));
+    }
+
+    @Test
+    public void testBoundaryPoints_onePointSet() throws Exception {
+        final Point2D[] boundaryPoints = Space2D.findBoundaryPoints(new PointSet(new Point2D(0, 0)));
+        for (Point2D boundaryPoint : boundaryPoints) {
+            assertEquals(new Point2D(0, 0), boundaryPoint);
+        }
+    }
+
+    @Test
+    public void testBoundaryPoints_regularPoints() throws Exception {
+        final Point2D[] boundaryPoints = Space2D.findBoundaryPoints(new PointSet(
+                new Point2D(1, 0),
+                new Point2D(-1, 0),
+                new Point2D(0, 1),
+                new Point2D(0, -1)));
+        assertEquals(new Point2D(-1, 0), boundaryPoints[0]);
+        assertEquals(new Point2D(0, -1), boundaryPoints[1]);
+        assertEquals(new Point2D(1, 0), boundaryPoints[2]);
+        assertEquals(new Point2D(0, 1), boundaryPoints[3]);
+    }
+
+    @Test
+    public void testBoundaryPoints_leftLower_rightUpper() throws Exception {
+        final Point2D[] boundaryPoints = Space2D.findBoundaryPoints(new PointSet(
+                new Point2D(1, 1),
+                new Point2D(-1, -1),
+                new Point2D(-1, 1),
+                new Point2D(1, -1)));
+        assertEquals(new Point2D(-1, -1), boundaryPoints[0]);
+        assertEquals(new Point2D(-1, -1), boundaryPoints[1]);
+        assertEquals(new Point2D(1, 1), boundaryPoints[2]);
+        assertEquals(new Point2D(1, 1), boundaryPoints[3]);
     }
 }
